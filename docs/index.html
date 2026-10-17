@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>相机水印 · Sileo 源</title>
+<style>
+  body { font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", sans-serif;
+         max-width: 720px; margin: 48px auto; padding: 0 20px; line-height: 1.7;
+         color: #1c1c1e; background: #fafafa; }
+  h1 { font-size: 26px; margin-bottom: 4px; }
+  .sub { color: #666; margin-top: 0; }
+  code, pre { background: #f0f0f2; border-radius: 8px; padding: 2px 6px; }
+  pre { padding: 14px; overflow-x: auto; }
+  .card { background: #fff; border-radius: 14px; padding: 20px 24px; margin: 20px 0;
+          box-shadow: 0 1px 4px rgba(0,0,0,.06); }
+  a { color: #0a7aff; }
+</style>
+</head>
+<body>
+  <h1>相机水印</h1>
+  <p class="sub">Sileo 源 · CameraWatermark 1.0.0</p>
+
+  <div class="card">
+    <h2>添加源</h2>
+    <p>在 Sileo 里打开 <b>软件源 → 编辑 → 添加</b>，输入：</p>
+    <pre>https://gh-proxy.com/https://raw.githubusercontent.com/darenni86-svg/CameraWatermark/main/docs/</pre>
+    <p>刷新后搜索「相机水印」安装即可。</p>
+  </div>
+
+  <div class="card">
+    <h2>直接下载 deb</h2>
+    <ul>
+      <li><a href="debs/com.dsh.camerawatermark_1.0.0_iphoneos-arm64.deb">iphoneos-arm64</a></li>
+      <li><a href="debs/com.dsh.camerawatermark_1.0.0_iphoneos-arm.deb">iphoneos-arm</a></li>
+    </ul>
+    <p>分不清就看手机里有没有 <code>/var/jb</code>：有就是 rootless。</p>
+  </div>
+
+  <div class="card">
+    <h2>安装后</h2>
+    <p>Respring，然后把「相机」从后台彻底划掉再打开，拍一张照片看看相册。</p>
+  </div>
+</body>
+</html>
