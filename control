@@ -1,0 +1,10 @@
+Package: com.dsh.camerawatermark
+Name: 相机水印
+Version: 1.0.0
+Architecture: iphoneos-arm
+Description: 系统相机拍照保存时自动合成水印：机型、日期时间、焦距/光圈/快门/ISO、经纬度，样式为底部圆角半透明信息条。
+Maintainer: dsh
+Author: dsh
+Section: Tweaks
+Priority: optional
+Depends: mobilesubstrate (>= 0.9.5000) | ellekit, firmware (>= 14.0)
