@@ -55,6 +55,8 @@ static NSDictionary *CMWPropertiesWithMarker(NSDictionary *properties) {
         : [NSMutableDictionary dictionary];
     mutableExif[(__bridge NSString *)kCGImagePropertyExifUserComment] = CMWMarker;
     result[(__bridge NSString *)kCGImagePropertyExifDictionary] = mutableExif;
+    // 水印画完以后像素已经是正的了，元数据里的方向必须归 1，否则会再转一次。
+    result[(__bridge NSString *)kCGImagePropertyOrientation] = @(1);
     return result;
 }
 
@@ -303,6 +305,20 @@ static void CMWDrawWatermark(CGSize size, NSDictionary *properties) {
     }
 }
 
+static UIImageOrientation CMWImageOrientationFromEXIF(NSInteger value) {
+    switch (value) {
+        case 1: return UIImageOrientationUp;
+        case 2: return UIImageOrientationUpMirrored;
+        case 3: return UIImageOrientationDown;
+        case 4: return UIImageOrientationDownMirrored;
+        case 5: return UIImageOrientationLeftMirrored;
+        case 6: return UIImageOrientationRight;
+        case 7: return UIImageOrientationRightMirrored;
+        case 8: return UIImageOrientationLeft;
+        default: return UIImageOrientationUp;
+    }
+}
+
 CGImageRef CMWCreateWatermarkedImage(CGImageRef image, CFDictionaryRef properties) {
     if (image == NULL || !CMWEnabled()) {
         return NULL;
@@ -315,9 +331,8 @@ CGImageRef CMWCreateWatermarkedImage(CGImageRef image, CFDictionaryRef propertie
 
     NSDictionary *props = properties != NULL ? (__bridge NSDictionary *)properties : @{};
     NSNumber *orientationValue = props[(__bridge NSString *)kCGImagePropertyOrientation];
-    UIImageOrientation orientation = (UIImageOrientation)(orientationValue != nil
-                                                          ? orientationValue.integerValue
-                                                          : UIImageOrientationUp);
+    NSInteger exifOrientation = orientationValue != nil ? orientationValue.integerValue : 1;
+    UIImageOrientation orientation = CMWImageOrientationFromEXIF(exifOrientation);
     UIImage *source = [UIImage imageWithCGImage:image scale:1.0 orientation:orientation];
     if (source == nil) {
         return NULL;
@@ -355,6 +370,8 @@ NSData *CMWWatermarkImageData(NSData *data) {
         CFRelease(source);
         return nil;
     }
+    CFStringRef sourceType = CGImageSourceGetType(source);
+    NSString *outputUTI = sourceType != NULL ? CFBridgingRelease(CFRetain(sourceType)) : @"public.jpeg";
     CGImageRef image = CGImageSourceCreateImageAtIndex(source, 0, NULL);
     CFRelease(source);
     if (image == NULL) {
@@ -369,7 +386,7 @@ NSData *CMWWatermarkImageData(NSData *data) {
 
     NSMutableData *result = [NSMutableData data];
     CGImageDestinationRef destination = CGImageDestinationCreateWithData(
-        (__bridge CFMutableDataRef)result, CFSTR("public.jpeg"), 1, NULL);
+        (__bridge CFMutableDataRef)result, (__bridge CFStringRef)outputUTI, 1, NULL);
     if (destination == NULL) {
         CGImageRelease(watermarked);
         return nil;
