@@ -1,0 +1,28 @@
+Package: com.dsh.camerawatermark
+Name: 相机水印
+Version: 1.0.0
+Architecture: iphoneos-arm
+Description: 系统相机拍照保存时自动合成水印：机型、日期时间、焦距/光圈/快门/ISO、经纬度。
+Maintainer: dsh
+Author: dsh
+Section: Tweaks
+Depends: mobilesubstrate (>= 0.9.5000) | ellekit, firmware (>= 14.0)
+Filename: debs/com.dsh.camerawatermark_1.0.0_iphoneos-arm.deb
+Size: 11858
+SHA256: ffea9d233a05fa3580230fdff07d9fb70110cbace64bae83c125cb0b7e05be9b
+Installed-Size: 236
+
+Package: com.dsh.camerawatermark
+Name: 相机水印
+Version: 1.0.0
+Architecture: iphoneos-arm64
+Description: 系统相机拍照保存时自动合成水印：机型、日期时间、焦距/光圈/快门/ISO、经纬度。
+Maintainer: dsh
+Author: dsh
+Section: Tweaks
+Depends: mobilesubstrate (>= 0.9.5000) | ellekit, firmware (>= 14.0)
+Filename: debs/com.dsh.camerawatermark_1.0.0_iphoneos-arm64.deb
+Size: 11944
+SHA256: 24d9334f442823d0b642a532525fc9a53cacc5eef532d4a0ee343d26f43be103
+Installed-Size: 236
+
